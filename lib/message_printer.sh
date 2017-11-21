@@ -1,0 +1,60 @@
+### Dependencies
+###############################################################################
+# depends_on: [ base_utils.sh ]
+###############################################################################
+
+###############################################################################
+#### string colorizing
+###############################################################################
+__add_emphasis_blue() {
+    local string="${1}"
+    echo -en "$(tput setaf 4)${string}$(tput init)"
+}
+
+__add_emphasis_red() {
+    local string="${1}"
+    echo -en "$(tput setaf 1)${string}$(tput init)"
+}
+
+__add_emphasis_gray() {
+    local string="${1}"
+    echo -en "$(tput setaf 0)${string}$(tput init)"
+}
+
+###############################################################################
+#### basic logging functions
+###############################################################################
+info() {
+    # _format="\e[30m[$(get_entrypoint_script)]$(get_script_section)\e[0m %s\n"
+    _format="$(__add_emphasis_gray [$(get_entrypoint_script)]$(get_script_section)) %s\n"
+    message=${1}
+    printf "${_format}" "${message}"
+}
+
+
+error() {
+    # _format="\e[31m[$(get_entrypoint_script)]$(get_script_section)\e[0m %s\n"
+    _format="$(__add_emphasis_red [$(get_entrypoint_script)]$(get_script_section)) %s\n"
+    message=${1}
+    printf "${_format}" "${message}"
+}
+
+###############################################################################
+#### log stream decorators
+###############################################################################
+decorate_error() {
+    # local _format="\e[31m[$(get_entrypoint_script)]$(get_script_section)\e[0m %s\n"
+    local _format="$(__add_emphasis_red [$(get_entrypoint_script)]$(get_script_section)) %s\n"
+
+    # decorate output
+    while read line; do printf "${_format}" "$line"; done
+}
+
+__decorate_cmd_output() {
+    local _custom_label="${1}"
+    local _cmd_format="\e[34m[${_custom_label}]\e[0m %s\n"
+
+    # decorate command output
+    while read line; do printf "${_cmd_format}" "$line"; done
+}
+
