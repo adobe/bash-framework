@@ -31,12 +31,16 @@ info() {
     printf "${_format}" "${message}"
 }
 
-
 error() {
     # _format="\e[31m[$(get_entrypoint_script)]$(get_script_section)\e[0m %s\n"
     _format="$(__add_emphasis_red [$(get_entrypoint_script)]$(get_script_section)) %s\n"
     message=${1}
     printf "${_format}" "${message}"
+}
+
+debug() {
+    message=${1}
+    [ -n "${__tfm_DEBUG}" ] && echo -en "${message}" >> /tmp/tf.log
 }
 
 ###############################################################################

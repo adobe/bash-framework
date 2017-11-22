@@ -145,6 +145,9 @@ run_cmd_silent() {
     run_cmd "${command}" "${message}" "${cmd_flags[@]}" "${fail_message}"
     local result=$?
 
+    # log executed commands if flag is set
+    debug "---\nCommand: ${command}\nResult: ${result}\n"
+
     # pass command exit-code to caller
     return ${result}
 }
