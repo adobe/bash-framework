@@ -58,7 +58,7 @@ __parse_status() {
     # failure handling
     if [ $result -ne 0 ]; then
         # print out custom error message if set
-        [ -n "${fail_message}" ] && printf "%s\n" "${fail_message}"
+        [ -n "${fail_message}" ] && (>&2 printf "%s\n" "${fail_message}")
 
         # if strict flag is set on a failed command, then we also pass the exit code
         [ "${strict}" = 'strict' ] && exit $result
@@ -120,7 +120,7 @@ __cmd_exec() {
     return $result
 }
 
-run_strict_validation() {
+run_cmd_silent() {
     # input vars
     __safe_set_bash_setting 'u'
     local command="${1}"
@@ -130,12 +130,12 @@ run_strict_validation() {
 
     ## prepare flags for run_cmd
     cmd_flags=(
-        "strict"
+        "no_strict"
         "no_print_cmd"
         "no_decorate_output"
         "no_print_output"
         "no_print_message"
-        "print_status"
+        "no_print_status"
         "no_print_outcome"
         "aborting..."
         "continuing..."
