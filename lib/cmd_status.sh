@@ -152,6 +152,70 @@ run_cmd_silent() {
     return ${result}
 }
 
+run_cmd_silent_strict() {
+    # input vars
+    __safe_set_bash_setting 'u'
+    local command="${1}"
+    local message="${2}"
+    local fail_message="${3}"
+    __safe_unset_bash_setting 'u'
+
+    ## prepare flags for run_cmd
+    cmd_flags=(
+        "strict"
+        "no_print_cmd"
+        "no_decorate_output"
+        "no_print_output"
+        "no_print_message"
+        "no_print_status"
+        "no_print_outcome"
+        "aborting..."
+        "continuing..."
+    )
+
+    ## execute validation
+    run_cmd "${command}" "${message}" "${cmd_flags[@]}" "${fail_message}"
+    local result=$?
+
+    # log executed commands if flag is set
+    debug "---\nCommand: ${command}\nResult: ${result}\n"
+
+    # pass command exit-code to caller
+    return ${result}
+}
+
+run_cmd_strict() {
+    # input vars
+    __safe_set_bash_setting 'u'
+    local command="${1}"
+    local message="${2}"
+    local fail_message="${3}"
+    __safe_unset_bash_setting 'u'
+
+    ## prepare flags for run_cmd
+    cmd_flags=(
+        "strict"
+        "no_print_cmd"
+        "no_decorate_output"
+        "no_print_output"
+        "no_print_message"
+        "print_status"
+        "no_print_outcome"
+        "aborting..."
+        "continuing..."
+    )
+
+    ## execute validation
+    run_cmd "${command}" "${message}" "${cmd_flags[@]}" "${fail_message}"
+    local result=$?
+
+    # log executed commands if flag is set
+    debug "---\nCommand: ${command}\nResult: ${result}\n"
+
+    # pass command exit-code to caller
+    return ${result}
+}
+
 ## public function for users to call for running commands
 run_cmd() {
     # input vars
