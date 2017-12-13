@@ -38,7 +38,7 @@ __parse_status() {
     outcome_message="${outcome_deco_open}done${outcome_deco_close}"
     if [ $result -ne 0 ]; then
         # rather sad flow
-        label_color='31'
+        label_color='31' # red
         result_message="${result_deco_open} ${FAIL} ${result_deco_close}";
         outcome_message="${outcome_deco_open}stopped${outcome_deco_close}"
         # "oh, shit!" flow
@@ -46,8 +46,14 @@ __parse_status() {
         [ "${strict}" = 'no_strict' ] && result_message="${result_message} $(printf "\e[31m${no_strict_message}\e[0m")"
     fi
 
+    # set desired message length
+    _message_length='80'
+
+    # auto-adjust length in case the message itself contains colored string sequences
+    _message_length=$(__adjust_length_to_colored_output "${message}" "${_message_length}")
+
     # set format
-    _format="\e[${label_color}m[$(get_entrypoint_script)]$(get_script_section)\e[0m %-76.76s %s\n"
+    _format="\e[${label_color}m[$(get_entrypoint_script)]$(get_script_section)\e[0m %-${_message_length}.${_message_length}s %s\n"
 
     # suppress the outcome suffix if flag is disabled
     [ "${print_outcome}" = "no_print_outcome" ] && outcome_message=''

@@ -8,17 +8,17 @@
 ###############################################################################
 __add_emphasis_blue() {
     local string="${1}"
-    echo -en "$(tput setaf 4)${string}$(tput init)"
+    echo -en "\033[34m${string}\033[0m"
 }
 
 __add_emphasis_red() {
     local string="${1}"
-    echo -en "$(tput setaf 1)${string}$(tput init)"
+    echo -en "\033[31m${string}\033[0m"
 }
 
 __add_emphasis_gray() {
     local string="${1}"
-    echo -en "$(tput setaf 0)${string}$(tput init)"
+    echo -en "\033[30m${string}\033[0m"
 }
 
 ###############################################################################
