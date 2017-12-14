@@ -16,6 +16,11 @@ __add_emphasis_red() {
     echo -en "\033[31m${string}\033[0m"
 }
 
+__add_emphasis_green() {
+    local string="${1}"
+    echo -en "\033[32m${string}\033[0m"
+}
+
 __add_emphasis_gray() {
     local string="${1}"
     echo -en "\033[30m${string}\033[0m"

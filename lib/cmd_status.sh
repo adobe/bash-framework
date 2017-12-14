@@ -8,6 +8,19 @@ OK=$(printf "\e[32m${OK}\e[0m")
 FAIL=$(printf "\xE2\x9C\x97")
 FAIL=$(printf "\e[31m${FAIL}\e[0m")
 
+## global default run_cmd flags
+_DEFAULT_CMD_FLAGS=(
+    "no_strict"             # 0
+    "no_print_cmd"          # 1
+    "no_decorate_output"    # 2
+    "print_output"          # 3
+    "print_message"         # 4
+    "print_status"          # 5
+    "print_outcome"         # 6
+    "aborting..."           # 7
+    "continuing..."         # 8
+)
+
 ## internal function that can
 # - report pretty cmd status
 # - abort whole script if running in strict mode
@@ -134,18 +147,12 @@ run_cmd_silent() {
     local fail_message="${3}"
     __safe_unset_bash_setting 'u'
 
-    ## prepare flags for run_cmd
-    cmd_flags=(
-        "no_strict"
-        "no_print_cmd"
-        "no_decorate_output"
-        "no_print_output"
-        "no_print_message"
-        "no_print_status"
-        "no_print_outcome"
-        "aborting..."
-        "continuing..."
-    )
+    ## load default cmd_flags and override as needed
+    cmd_flags=(${_DEFAULT_CMD_FLAGS[@]})
+    cmd_flags[3]='no_print_output'
+    cmd_flags[4]='no_print_message'
+    cmd_flags[5]='no_print_status'
+    cmd_flags[6]='no_print_outcome'
 
     ## execute validation
     run_cmd "${command}" "${message}" "${cmd_flags[@]}" "${fail_message}"
@@ -166,18 +173,13 @@ run_cmd_silent_strict() {
     local fail_message="${3}"
     __safe_unset_bash_setting 'u'
 
-    ## prepare flags for run_cmd
-    cmd_flags=(
-        "strict"
-        "no_print_cmd"
-        "no_decorate_output"
-        "no_print_output"
-        "no_print_message"
-        "no_print_status"
-        "no_print_outcome"
-        "aborting..."
-        "continuing..."
-    )
+    ## load default cmd_flags and override as needed
+    cmd_flags=(${_DEFAULT_CMD_FLAGS[@]})
+    cmd_flags[0]='strict'
+    cmd_flags[3]='no_print_output'
+    cmd_flags[4]='no_print_message'
+    cmd_flags[5]='no_print_status'
+    cmd_flags[6]='no_print_outcome'
 
     ## execute validation
     run_cmd "${command}" "${message}" "${cmd_flags[@]}" "${fail_message}"
@@ -198,18 +200,12 @@ run_cmd_strict() {
     local fail_message="${3}"
     __safe_unset_bash_setting 'u'
 
-    ## prepare flags for run_cmd
-    cmd_flags=(
-        "strict"
-        "no_print_cmd"
-        "no_decorate_output"
-        "no_print_output"
-        "no_print_message"
-        "print_status"
-        "no_print_outcome"
-        "aborting..."
-        "continuing..."
-    )
+    ## load default cmd_flags and override as needed
+    cmd_flags=(${_DEFAULT_CMD_FLAGS[@]})
+    cmd_flags[0]='strict'
+    cmd_flags[3]='no_print_output'
+    cmd_flags[4]='no_print_message'
+    cmd_flags[6]='no_print_outcome'
 
     ## execute validation
     run_cmd "${command}" "${message}" "${cmd_flags[@]}" "${fail_message}"
@@ -228,15 +224,15 @@ run_cmd() {
     __safe_set_bash_setting 'u'
     local command="${1}"
     local message="${2:-}"
-    local strict="${3:-no_strict}"
-    local print_cmd="${4:-no_print_cmd}"
-    local decorate_output="${5:-no_decorate_output}"
-    local print_output="${6:-print_output}"
-    local print_message="${7:-print_message}"
-    local print_status="${8:-print_status}"
-    local print_outcome="${9:-print_outcome}"
-    local strict_message="${10:-aborting...}"
-    local no_strict_message="${11:-continuing...}"
+    local strict="${3:-${_DEFAULT_CMD_FLAGS[0]}}"
+    local print_cmd="${4:-${_DEFAULT_CMD_FLAGS[1]}}"
+    local decorate_output="${5:-${_DEFAULT_CMD_FLAGS[2]}}"
+    local print_output="${6:-${_DEFAULT_CMD_FLAGS[3]}}"
+    local print_message="${7:-${_DEFAULT_CMD_FLAGS[4]}}"
+    local print_status="${8:-${_DEFAULT_CMD_FLAGS[5]}}"
+    local print_outcome="${9:-${_DEFAULT_CMD_FLAGS[6]}}"
+    local strict_message="${10:-${_DEFAULT_CMD_FLAGS[7]}}"
+    local no_strict_message="${11:-${_DEFAULT_CMD_FLAGS[8]}}"
     local fail_message="${12:-}"
     __safe_unset_bash_setting 'u'
 
