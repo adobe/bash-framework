@@ -8,4 +8,4 @@ source "${__bf_lib_dir}/message_printer.sh"
 
 # import independent module libs
 source "${__bf_lib_dir}/cmd_status.sh"
-source "${__bf_lib_dir}/user_input_validate.sh"
+source "${__bf_lib_dir}/user_input_parser.sh"
