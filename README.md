@@ -5,14 +5,14 @@ Provides a shared code base for simple Bash scripts
 
 ###  Step 0. Set the framework version that you want to use
 ```
-_FRAMEWORK_VERSION='0.1.0'
+_FRAMEWORK_VERSION='0.5.1'
 ```
 
 ###  Step 1. Add the framework repository as a submodule in your bash script project/repo
 ```
 cd my_bash_project
 git submodule add git@git.corp.adobe.com:aemm-sre-tools/bash-framework.git vendor/bash-framework    # get source code
-git commit 'imported aemm-sre-tools/bash-framework as a submodule'                                  # save submodule reference to top-level repo
+git commit -m 'imported aemm-sre-tools/bash-framework as a submodule'                               # save submodule reference to top-level repo
 ```
 
 ###  Step 2. Pin the desired version
