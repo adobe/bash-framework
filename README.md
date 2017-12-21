@@ -5,7 +5,7 @@ Provides a shared code base for simple Bash scripts
 
 ###  Step 0. Set the framework version that you want to use
 ```
-_FRAMEWORK_VERSION='0.5.1'
+_FRAMEWORK_VERSION='0.5.2'
 ```
 
 ###  Step 1. Add the framework repository as a submodule in your bash script project/repo
@@ -20,7 +20,8 @@ git commit -m 'imported aemm-sre-tools/bash-framework as a submodule'           
 cd vendor/bash-framework
 git checkout ${_FRAMEWORK_VERSION}
 cd -
-git commit "fixed bash framework version @ ${_FRAMEWORK_VERSION}"
+git add vendor/bash-framework
+git commit -m "fixed bash framework version @ ${_FRAMEWORK_VERSION}"
 ```
 
 ###  Step 3. Import framework into your code
