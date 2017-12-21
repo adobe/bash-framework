@@ -29,8 +29,8 @@ git commit -m "fixed bash framework version @ ${_FRAMEWORK_VERSION}"
 ### Framework boilerplate
 ###############################################################################
 # calculate script root dir
-ROOT_DIR="$( dirname $(realpath ${BASH_SOURCE[0]}) )"
+export ROOT_DIR=$(cd ${BASH_SOURCE[0]%/*}/.. && pwd -P)
 
 # import bash framework
-source "${ROOT_DIR}/../vendor/bash-framework/lib/import.sh"
+source "${ROOT_DIR}/vendor/bash-framework/lib/import.sh"
 ```
