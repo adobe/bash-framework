@@ -5,7 +5,7 @@ Provides a shared code base for simple Bash scripts
 
 ###  Step 0. Set the framework version that you want to use
 ```
-_FRAMEWORK_VERSION='0.5.2'
+_FRAMEWORK_VERSION='0.5.3'
 ```
 
 ###  Step 1. Add the framework repository as a submodule in your bash script project/repo

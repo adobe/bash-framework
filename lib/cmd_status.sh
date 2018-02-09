@@ -60,7 +60,7 @@ __parse_status() {
     fi
 
     # set desired message length
-    _message_length="90"
+    _message_length="99"
 
     # auto-adjust length in case the message itself contains colored string sequences
     _message_length=$(__adjust_length_to_colored_output "${message}" "${_message_length}")
