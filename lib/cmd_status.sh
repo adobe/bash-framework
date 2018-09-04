@@ -46,7 +46,7 @@ __parse_status() {
     outcome_deco_close=')'
 
     # happy flow
-    label_color='30' # green
+    label_color='30;1' # light gray
     result_message="${result_deco_open} ${OK} ${result_deco_close}"
     outcome_message="${outcome_deco_open}done${outcome_deco_close}"
     if [ $result -ne 0 ]; then
@@ -82,17 +82,6 @@ __parse_status() {
         # if strict flag is set on a failed command, then we also pass the exit code
         [ "${strict}" = 'strict' ] && exit $result
     fi
-}
-
-__print_cmd() {
-    # input vars
-    __safe_set_bash_setting 'u'
-    local _cmd_format="\e[30m[$(get_entrypoint_script)]$(get_script_section)\e[0m %s\n"
-    local _command="$1"
-    __safe_unset_bash_setting 'u'
-
-    # print command
-    printf "${_cmd_format}" "${_command}"
 }
 
 ## internal command execution function that can
@@ -240,7 +229,7 @@ run_cmd() {
     [ "${print_message}" = "print_message" ] && info "${message}"
 
     # print command
-    [ "${print_cmd}" = "print_cmd" ] && __print_cmd "${command}"
+    [ "${print_cmd}" = "print_cmd" ] && info "${command}"
 
     # execute command and store exit code
     __cmd_exec "${command}" "${decorate_output}" "${strict}" "${print_output}" "${print_message}" "${print_status}" "${print_outcome}" "${fail_message}" "${strict_message}" "${no_strict_message}"
