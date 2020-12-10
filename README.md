@@ -26,10 +26,27 @@ git commit -m "fixed bash framework version @ ${_FRAMEWORK_VERSION}"
 
 ###  Step 3. Import framework into your code
 ```bash
+### Platform check
+###############################################################################
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
+
+### Binary set
+###############################################################################
+case "${machine}" in
+    Linux*)     BIN_READLINK="readlink";;
+    Mac*)       BIN_READLINK="greadlink";;
+    *)          BIN_READLINK="readlink";;
+esac
+
 ### Framework boilerplate
 ###############################################################################
 # calculate script root dir
-export ROOT_DIR=$(cd ${BASH_SOURCE[0]%/*}/.. && pwd -P)
+ROOT_DIR="$( dirname $(${BIN_READLINK} -f ${BASH_SOURCE[0]}) )"
 
 # import bash framework
 source "${ROOT_DIR}/vendor/bash-framework/lib/import.sh"
