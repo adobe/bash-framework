@@ -1,5 +1,5 @@
 # bash-framework
-Provides a shared code base for simple Bash scripts
+A collection of helper bash functions used to create lightweight and portable CLI wrappers for other tools
 
 ## Usage
 
