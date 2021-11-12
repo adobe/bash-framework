@@ -11,8 +11,8 @@ _FRAMEWORK_VERSION='0.7.2'
 ###  Step 1. Add the framework repository as a submodule in your bash script project/repo
 ```bash
 cd my_bash_project
-git submodule add git@git.corp.adobe.com:mob-sre-tools/bash-framework.git vendor/bash-framework    # get source code
-git commit -m 'imported mob-sre-tools/bash-framework as a submodule'                               # save submodule reference to top-level repo
+git submodule add git@git.corp.adobe.com:target-ops/bash-framework.git vendor/bash-framework    # get source code
+git commit -m 'imported bash-framework as a submodule'                                          # save submodule reference to top-level repo
 ```
 
 ###  Step 2. Pin the desired version
