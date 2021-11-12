@@ -5,7 +5,7 @@ A collection of helper bash functions used to create lightweight and portable CL
 
 ###  Step 0. Set the framework version that you want to use
 ```bash
-_FRAMEWORK_VERSION='0.6.1'
+_FRAMEWORK_VERSION='0.7.2'
 ```
 
 ###  Step 1. Add the framework repository as a submodule in your bash script project/repo
